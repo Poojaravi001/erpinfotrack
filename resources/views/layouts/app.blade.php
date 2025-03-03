@@ -15,6 +15,9 @@
   <link rel='shortcut icon' type='image/x-icon' href='{{asset('img/favicon.ico')}}' />
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <style>
     .select2{
       width: 100% !important;
@@ -48,7 +51,6 @@
 
         <ul class="navbar-nav navbar-right">
 
-
           <li class="dropdown dropdown-list-toggle"><a href="#" data-bs-toggle="dropdown" class="nav-link notification-toggle nav-link-lg"><i data-feather="bell" class="bell"></i>
           </a>
           <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
@@ -75,7 +77,6 @@
              <li class="dropdown"><a href="#" data-toggle="dropdown"class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('img/user.png')}}"class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
 
 
-
             <div class="dropdown-menu dropdown-menu-right pullDown">
             <div class="dropdown-title">Hi, {{ auth()->user()->name }}</div>
               <div class="dropdown-divider"></div>
@@ -90,19 +91,14 @@
       </nav>
 
 
-
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-
-
-
             <a href="#"> <img alt="image" src="{{asset('img/logo.png')}}" class="header-logo" /> <span
                 class="logo-name">ERP</span>
             </a>
           </div>
-
-
+ 
 
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
@@ -131,6 +127,8 @@
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i  data-feather="dollar-sign"></i><span>Finance</span></a>
               <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{ route('feesettings.index') }}">Fees</a></li>
+
                 <li><a class="nav-link" href="{{ route('fees.create') }}">Fees Collection </a></li>
               </ul>
             </li>

@@ -61,7 +61,7 @@
                       <div class="col-6">
                         <p>DOB: {{ $enquiry->dob }}</p>
                         <p>Gender: {{ $enquiry->gender }}</p>
-                        {{-- <p>Interested course: {{ $enquiry->course()->first()->title }}</p> --}}
+                        <p>Interested course: {{ $enquiry->course()->first()->name }}</p>
                         <p>Next Follow Up Date: {{ $enquiry->followup()->orderBy('id', 'desc')->first()->followup_date ?? '' }}</p>
                       </div>
                       
@@ -75,6 +75,7 @@
                       </li>
                      
                     </ul>
+                    
                     <div class="tab-content" id="pills-tabContent">
                       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <form method="post" id="myForm" action="{{ route('enquiry_followup.store') }}" enctype="multipart/form-data">

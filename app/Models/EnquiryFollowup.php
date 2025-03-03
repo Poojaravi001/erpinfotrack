@@ -29,4 +29,10 @@ class EnquiryFollowup extends Model
 			$model->updated_by = $user->id;
 		});
 	}
+
+	public function course()
+{
+    return $this->belongsTo(Course::class);
+}
+
 }

@@ -27,4 +27,12 @@ class Fees extends Model
 			$model->updated_by = $user->id;
 		});
 	}
+
+	public function admission()
+	{
+		return $this->belongsTo(Admission::class, 'admission_id');
+	}
+
+
+
 }

@@ -24,7 +24,7 @@
                     <div class="col-10 mb-3">
                     <h6 class="col-deep-purple">Enquiry Details</h6>
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-md-2 col-sm-12 mb-3">
                       <a href="<?php echo e(route('enquiry.create')); ?>" class="btn btn-primary btn-block">Add Enquiry</a>
                     </div>
                     </div>
@@ -38,7 +38,7 @@
   
           <th>Enquiry No</th>
           <th>Name</th>
-          <th>Parent Name</th>
+          
           <th>Dob</th>
           <th>Gender</th>
           <th>Mobile No</th>
@@ -62,7 +62,7 @@
 
             <td><?php echo e($enquiry->name); ?></td>
 
-            <td><?php echo e($enquiry->parent_name); ?></td>
+            
 
             <td><?php echo e($enquiry->dob); ?></td>
 

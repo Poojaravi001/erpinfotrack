@@ -24,7 +24,7 @@
                     <div class="col-10 mb-3">
                     <h6 class="col-deep-purple">Settings Details</h6>
                     </div>
-                    <div class="col-2 mb-3">
+                    <div class="col-md-2 col-sm-12 mb-3">
                       <a href="{{route('settings.create')}}" class="btn btn-primary btn-block">Add Setting</a>
                     </div>
                     </div>

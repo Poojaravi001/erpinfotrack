@@ -25,15 +25,15 @@ class EnquiryController extends Controller{
         // $health_issues = Enquiry::groupBy('health_issues')->get();
         $blood_group = Enquiry::groupBy('blood_group')->get();
         // $document_type = Enquiry::groupBy('document_type')->get();
-
-        return view('enquiry.create',compact('courses','districts','states','blood_group'));
+        $academicYears = Course::select('academic_year')->distinct()->orderBy('academic_year', 'desc')->get();
+        return view('enquiry.create',compact('courses','districts','states','blood_group','academicYears'));
     }
 
     public function store(Request $request){
 
-        $request->validate([
-            'mobile_no' => ['unique:admission,mobile_no','numeric'],
-        ]);
+        // $request->validate([
+        //     'mobile_no' => ['unique:admission,mobile_no','numeric'],
+        // ]);
 
         $data  = $request->except(['student_photo', 'documents', '_token', '_method']);
         // if($request->hasFile('student_photo')){
@@ -47,22 +47,21 @@ class EnquiryController extends Controller{
         $enquiry = Enquiry::create($data);
         return to_route('enquiry.index');
     }
-
     public function edit(Request $request, Enquiry $enquiry){
         $courses = Course::all(); 
         $districts = DB::table('district_list')->get();
         $states = DB::table('district_list')->select('State')->distinct()->get();
-
-        // $health_issues = Enquiry::groupBy('health_issues')->get();
         $blood_group = Enquiry::groupBy('blood_group')->get();
-        // $document_type = Enquiry::groupBy('document_type')->get();
-
-        return view('enquiry.edit',compact('enquiry','courses','districts','states','blood_group'));
+        $academicYears = Course::select('academic_year')->distinct()->orderBy('academic_year', 'desc')->get();
+        $categories = Course::select('category')->distinct()->orderBy('category', 'desc')->get();
+    
+        return view('enquiry.edit', compact('enquiry', 'courses', 'districts', 'states', 'blood_group', 'academicYears','categories'));
     }
+    
+    
 
     public function update(Request $request, Enquiry $enquiry){
         
-
         $data  = $request->except(['student_photo', 'documents', '_token', '_method']);
         if($request->hasFile('student_photo')){
             $student_photo = $request->file('student_photo')->store('enquiry', 'public');

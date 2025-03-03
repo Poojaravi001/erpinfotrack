@@ -41,7 +41,7 @@
 
                       <div class="form-group col-lg-3">
                         <label>Date of Birth</label>
-                         <input type="date" value="2003-01-01" name="dob" class="form-control form-control-sm" required>
+                         <input type="date" name="dob" class="form-control form-control-sm" required>
                     </div>
 
                       <div class="form-group col-lg-3">
@@ -334,64 +334,28 @@
 </script>
 
 <div class="form-group col-lg-3">
-  <label>Interested Course</label>
-  <select name="interested_course" class="form-control form-control-sm" required>
-    <option value="">Select Degree Course</option>
-    <option value="bsc">Bachelor of Science (B.Sc)</option>
-    <option value="ba">Bachelor of Arts (B.A)</option>
-    <option value="bcom">Bachelor of Commerce (B.Com)</option>
-<option value="bba">Bachelor of Business Administration (BBA)</option>
- 
+  <label>Batch Year</label>
+  <select id="batchYear" name="batch_year" class="form-control form-control-sm" required>
+      <option value="">Select</option>
+      @foreach($academicYears as $year)
+      <option value="{{ $year->academic_year }}">{{ $year->academic_year }}</option>
+  @endforeach
   </select>
 </div>
 
-
-{{-- <div class="form-group col-lg-3">
-  <label>Blood group</label>
-   <select name="blood_group" class="select">
-    <option value="">Select Blood Group</option>
-    @foreach ($blood_group as $row)
-    <option value="{{$row->blood_group}}">{{$row->blood_group}}</option>
-    @endforeach
-  </select>
-</div> --}}
-{{-- 
 <div class="form-group col-lg-3">
-  <label>student photo</label>
-   <input type="file"  name="student_photo" accept="image/*" class="form-control form-control-sm">
-</div> --}}
-
-
-{{-- <div class="form-group col-lg-3">
-  <label>Document Type</label>
-  <select name="document_type" class="select">
-    <option value="">Select Document Type</option>
-    @foreach ($document_type as $row)
-    <option value="{{$row->document_type}}">{{$row->document_type}}</option>
-    @endforeach
+  <label>Type / Category</label>
+  <select id="type" name="type" class="form-control form-control-sm" required>
+      <option value="">Select Type / Category</option>
   </select>
-</div> --}}
-
-{{-- <div class="form-group col-lg-3">
-  <label>Documents</label>
-   <input type="file" accept="image/*,application/pdf"  name="documents" class="form-control form-control-sm">
-</div> --}}
-
-{{-- <div class="form-group col-lg-3">
-  <label>Health Issues</label>
-  <select name="health_issues" class="select">
-    <option value="">Select Health Issues</option>
-    @foreach ($health_issues as $issue)
-    <option value="{{$issue->health_issues}}">{{$issue->health_issues}}</option>
-    @endforeach
-  </select>
-</div> --}}
-
-{{-- <div class="form-group col-lg-3">
-  <label>Health Remarks</label>
-   <textarea name="health_remarks" class="form-control form-control-sm" cols="30" rows="5"></textarea>
 </div>
- --}}
+
+<div class="form-group col-lg-3">
+  <label>Interested Course</label>
+  <select id="course" name="course_id" class="form-control form-control-sm" required>
+      <option value="">Select Course</option>
+  </select>
+</div>
 
 
 
@@ -425,4 +389,56 @@
   })
   
 </script>
+
+<script>
+  $('#batchYear').change(function () {
+      var batchYear = $(this).val();
+  
+      if (batchYear) {  // Ensure batch year is selected
+          $.ajax({
+              url: "{{ route('get.categories') }}",
+              type: "GET",
+              data: { batch_year: batchYear },
+              success: function (response) {
+                  $('#type').empty().append('<option value="">Select Type / Category</option>');
+  
+                  if (response.categories.length > 0) {
+                      $.each(response.categories, function (key, category) {
+                          $('#type').append('<option value="' + category + '">' + category + '</option>');
+                      });
+                  }
+              }
+          });
+      } else {
+          console.error("Batch year is not selected");
+      }
+  });
+  
+  $('#batchYear, #type').change(function () {
+      var batchYear = $('#batchYear').val();
+      var type = $('#type').val();
+  
+      if (batchYear && type) {  // Ensure both batch year and type are selected
+          $.ajax({
+              url: "{{ route('get.batch.data') }}",
+              type: "GET",
+              data: { batch_year: batchYear, type: type },
+              success: function (response) {
+                  $('#course').empty().append('<option value="">Select Course</option>');
+  
+                  if (response.courses.length > 0) {
+                      $.each(response.courses, function (key, course) {
+                          $('#course').append('<option value="' + course.id + '">' + course.name + '</option>');
+                      });
+                  }
+              }
+          });
+      } else {
+          console.error("Batch year or type/category is not selected");
+      }
+  });
+  </script>
+  
+
+
 @endsection

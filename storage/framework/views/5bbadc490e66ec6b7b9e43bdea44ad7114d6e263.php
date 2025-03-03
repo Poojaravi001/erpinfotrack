@@ -41,10 +41,12 @@
           <th>Dob</th>
           <th>Gender</th>
           <th>Mobile No</th>
-          <th>Address Line1</th>
-          <th>Address Line2</th>
+          <th>Batch</th>
           
-          <th>Action</th>
+          <th>Address Line2</th>
+          <th>Course</th>
+          <th>Edit/View</th>
+          <th>Delete</th>
         </tr>
   
         </thead>
@@ -57,9 +59,13 @@
             <td><?php echo e($admission->dob); ?></td>
             <td><?php echo e($admission->gender); ?></td>
             <td><?php echo e($admission->mobile_no); ?></td>
-            <td><?php echo e($admission->address_line1); ?></td>
-            <td><?php echo e($admission->address_line2); ?></td>
+            <td><?php echo e($admission->batch_year); ?></td>
             
+            <td><?php echo e($admission->address_line2); ?></td>
+            <td><?php echo e($admission->course->name ?? 'N/A'); ?></td>
+            <td>
+              <a href="<?php echo e(route('admission.edit', $admission->id)); ?>" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+            </td>
             <td>
               <form action="<?php echo e(route('admission.destroy', $admission->id)); ?>" method="post">
                 <?php echo csrf_field(); ?>

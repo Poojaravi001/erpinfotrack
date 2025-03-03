@@ -31,7 +31,7 @@
 
                       <div class="form-group col-lg-3">
                         <label>Date of Birth</label>
-                         <input type="date" value="2003-01-01" name="dob" class="form-control form-control-sm" required>
+                         <input type="date" name="dob" class="form-control form-control-sm" required>
                     </div>
 
                       <div class="form-group col-lg-3">
@@ -322,29 +322,28 @@ unset($__errorArgs, $__bag); ?>
 </script>
 
 <div class="form-group col-lg-3">
-  <label>Interested Course</label>
-  <select name="interested_course" class="form-control form-control-sm" required>
-    <option value="">Select Degree Course</option>
-    <option value="bsc">Bachelor of Science (B.Sc)</option>
-    <option value="ba">Bachelor of Arts (B.A)</option>
-    <option value="bcom">Bachelor of Commerce (B.Com)</option>
-<option value="bba">Bachelor of Business Administration (BBA)</option>
- 
+  <label>Batch Year</label>
+  <select id="batchYear" name="batch_year" class="form-control form-control-sm" required>
+      <option value="">Select</option>
+      <?php $__currentLoopData = $academicYears; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <option value="<?php echo e($year->academic_year); ?>"><?php echo e($year->academic_year); ?></option>
+  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
   </select>
 </div>
 
+<div class="form-group col-lg-3">
+  <label>Type / Category</label>
+  <select id="type" name="type" class="form-control form-control-sm" required>
+      <option value="">Select Type / Category</option>
+  </select>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
+<div class="form-group col-lg-3">
+  <label>Interested Course</label>
+  <select id="course" name="course_id" class="form-control form-control-sm" required>
+      <option value="">Select Course</option>
+  </select>
+</div>
 
 
 
@@ -378,5 +377,57 @@ unset($__errorArgs, $__bag); ?>
   })
   
 </script>
+
+<script>
+  $('#batchYear').change(function () {
+      var batchYear = $(this).val();
+  
+      if (batchYear) {  // Ensure batch year is selected
+          $.ajax({
+              url: "<?php echo e(route('get.categories')); ?>",
+              type: "GET",
+              data: { batch_year: batchYear },
+              success: function (response) {
+                  $('#type').empty().append('<option value="">Select Type / Category</option>');
+  
+                  if (response.categories.length > 0) {
+                      $.each(response.categories, function (key, category) {
+                          $('#type').append('<option value="' + category + '">' + category + '</option>');
+                      });
+                  }
+              }
+          });
+      } else {
+          console.error("Batch year is not selected");
+      }
+  });
+  
+  $('#batchYear, #type').change(function () {
+      var batchYear = $('#batchYear').val();
+      var type = $('#type').val();
+  
+      if (batchYear && type) {  // Ensure both batch year and type are selected
+          $.ajax({
+              url: "<?php echo e(route('get.batch.data')); ?>",
+              type: "GET",
+              data: { batch_year: batchYear, type: type },
+              success: function (response) {
+                  $('#course').empty().append('<option value="">Select Course</option>');
+  
+                  if (response.courses.length > 0) {
+                      $.each(response.courses, function (key, course) {
+                          $('#course').append('<option value="' + course.id + '">' + course.name + '</option>');
+                      });
+                  }
+              }
+          });
+      } else {
+          console.error("Batch year or type/category is not selected");
+      }
+  });
+  </script>
+  
+
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\erp\resources\views/enquiry/create.blade.php ENDPATH**/ ?>

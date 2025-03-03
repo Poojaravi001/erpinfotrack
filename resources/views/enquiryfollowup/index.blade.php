@@ -15,11 +15,8 @@
                 <div class="alert alert-success alert-dismissible show fade"> {{ session('success') }} </div>
             @endif
                  
-        
                 <div class="card card-primary">
-  
                     <div class="card-body">
-  
                     <div class="row">
                     <div class="col-10 mb-3">
                     <h6 class="col-deep-purple">Enquiry Details</h6>
@@ -73,7 +70,7 @@
 
             <td>{{$enquiry->address_line2}}</td>
 
-            <td>{{ $enquiry->course()->first()->title }}</td>
+            <td>{{ $enquiry->course->title }}</td>
 
             <td></td>
 
@@ -108,10 +105,7 @@
 <script src="{{asset('bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js')}}"></script>
 <script>
   const table = $('#myTable').DataTable({
-
     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-
   });
-
 </script>
 @endsection

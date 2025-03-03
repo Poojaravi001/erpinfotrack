@@ -7,8 +7,9 @@
           <div class="row">
               <div class="col-12">
                   <div class="card card-primary" x-data="app">
-                     <form method="post" action="{{ route('enquiry.update', $enquiry->id) }}" enctype="multipart/form-data">
-                        @csrf
+                    <form method="post" action="{{ route('admission.update', $admission->id) }}" enctype="multipart/form-data">
+                      @csrf
+                      
                         @method('PUT')
                       <div class="card-body">
     
@@ -16,7 +17,7 @@
                         <div class="row">
                           <div class="form-group col-lg-3">
                              <label>Name</label>
-                              <input type="text" name="name" value="{{$enquiry->name}}" class="form-control form-control-sm" required>
+                              <input type="text" name="name" value="value="{{ $enquiry->name ?? '' }}" class="form-control form-control-sm" required>
                          </div>
                         
                          <div class="form-group col-lg-3">

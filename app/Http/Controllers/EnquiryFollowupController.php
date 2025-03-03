@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\DB;
 use Session;
 class EnquiryFollowupController extends Controller{
 
+/**
+ * Display a listing of the enquiry follow-ups.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ */
     public function index(Request $request){
       
     }
@@ -39,7 +45,7 @@ class EnquiryFollowupController extends Controller{
     }
 
     public function destroy(Request $request, EnquiryFollowup $enquiryfollowup){
-        $enquiry->delete();
+        $enquiryfollowup->delete();
         return to_route('enquiry.index');
     }
 }

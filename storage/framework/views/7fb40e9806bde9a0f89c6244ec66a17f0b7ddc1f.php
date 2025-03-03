@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title', 'Enquiry List'); ?>
 <?php $__env->startSection('main'); ?>
 <div class="main-content" x-data="app">
@@ -61,7 +60,7 @@
                       <div class="col-6">
                         <p>DOB: <?php echo e($enquiry->dob); ?></p>
                         <p>Gender: <?php echo e($enquiry->gender); ?></p>
-                        
+                        <p>Interested course: <?php echo e($enquiry->course()->first()->name); ?></p>
                         <p>Next Follow Up Date: <?php echo e($enquiry->followup()->orderBy('id', 'desc')->first()->followup_date ?? ''); ?></p>
                       </div>
                       
@@ -75,6 +74,7 @@
                       </li>
                      
                     </ul>
+                    
                     <div class="tab-content" id="pills-tabContent">
                       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <form method="post" id="myForm" action="<?php echo e(route('enquiry_followup.store')); ?>" enctype="multipart/form-data">

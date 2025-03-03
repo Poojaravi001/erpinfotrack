@@ -11,46 +11,48 @@
                         <?php echo csrf_field(); ?>
                       <div class="card-body">
     
+                      
                       <div class="row">
-
-                        
-
+                                  <div class="form-group col-lg-3">
+                          <label>Batch Year</label>
+                          <select id="batchYear" name="batch_year" class="form-control form-control-sm" required>
+                              <option value="">Select</option>
+                              <?php $__currentLoopData = $academicYears; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <option value="<?php echo e($year->academic_year); ?>"><?php echo e($year->academic_year); ?></option>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                          </select>
+                      </div>
+                      
+                      <datalist id="options">
+                          <?php $__currentLoopData = $mobile_no; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <option value="<?php echo e($row->mobile_no); ?>"><?php echo e($row->mobile_no); ?></option>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                      </datalist>
+                      
                       <div class="form-group col-lg-3">
-                        <label>Batch Year</label>
-                        <select name="batch_year" x-model="batch_year" class="form-control form-control-sm" required>
-                            <option value=""></option>
-                            <option value="3">2024-2027</option>
-                            <option value="2">2024-2026</option>
+                          <label>Name</label>
+                          <input type="text" name="name" x-model="enquiry.name" x-on:change="getEnquiry('name',enquiry.name)" class="form-control form-control-sm" required>
+                      </div>
+                      
+                      <div class="form-group col-lg-3">
+                        <label>Type / Category</label>
+                        <select id="type" name="type" class="form-control form-control-sm" required>
+                            <option value="">Select Type / Category</option>
                         </select>
                     </div>
-                      <datalist id="options">
-                        <?php $__currentLoopData = $mobile_no; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($row->mobile_no); ?>"><?php echo e($row->mobile_no); ?></option>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                       </datalist>
-
-                        <div class="form-group col-lg-3">
-                           <label>Name</label>
-                            <input type="text" name="name" x-model="enquiry.name" x-on:change="getEnquiry('name',enquiry.name)" class="form-control form-control-sm" required>
-                       </div>
-                      
-                       <div class="form-group col-lg-3">
-                        <label>Type</label>
-                         <select name="type" x-model="enquiry.type" class="form-control form-control-sm" required>
-                           <option value="">Select Type</option>
-                           <option value="sf-ug">SF UG</option>
-                           <option value="sf-pg">SF PG</option>
-                           <option value="aided-pg">Aided UG</option>
-                           <option value="adied-pg">Aided PG</option>
-                         </select>
-                      </div>
+                    
+                    <div class="form-group col-lg-3">
+                        <label>Course</label>
+                        <select id="course" name="course_id" class="form-control form-control-sm" required>
+                            <option value="">Select Course</option>
+                        </select>
+                    </div>
 
                       <div class="form-group col-lg-3">
                         <label>Date of Birth</label>
-                         <input type="date" x-model="enquiry.dob" value="2003-01-01" name="dob" class="form-control form-control-sm" required>
+                         <input type="date" x-model="enquiry.dob"  name="dob" class="form-control form-control-sm" required>
                     </div>
 
-                  
 
                     <div class="form-group col-lg-3">
                       <label>Gender</label>
@@ -60,8 +62,8 @@
                          <option value="Female">Female</option>
                          <option value="Transgender">Transgender</option>
                        </select>
-                
                     </div>
+
 
                     <div class="form-group col-lg-3">
                       <label>Mobile No</label>
@@ -83,8 +85,8 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                
                   </div>
+
 
                   <div class="form-group col-lg-3">
                     <label>Alternate Mobile Number</label>
@@ -107,10 +109,6 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
-                
-
-
-
 
                   <div class="form-group col-lg-3">
                     <label>Address Line1</label>
@@ -153,20 +151,8 @@ unset($__errorArgs, $__bag); ?>
              <input type="date" value="<?php echo e(date('Y-m-d')); ?>" name="admission_date" class="form-control form-control-sm">
         </div>
                
-        
-        <div class="form-group col-lg-3">
-          <label> Course</label>
-          <select name="course" class="form-control form-control-sm" required>
-            <option value="">Select Degree Course</option>
-            <option value="bsc">Bachelor of Science (B.Sc)</option>
-            <option value="ba">Bachelor of Arts (B.A)</option>
-            <option value="bcom">Bachelor of Commerce (B.Com)</option>
-        <option value="bba">Bachelor of Business Administration (BBA)</option>
-        <option value="mcom">Master of Business Commerce (M.COM)</option>
-        <option value="msc">Master of Business Science (M.Sc)</option>
-         
-          </select>
-        </div>
+     
+
           <div class="form-group col-lg-12"><h6> Parents Details</h6> <hr style="border-bottom: 1px solid #ccc;"></div>
 
           <div class="form-group col-lg-12">
@@ -327,7 +313,7 @@ unset($__errorArgs, $__bag); ?>
   <select name="document_type" x-model="enquiry.document_type" id="document_type">
     <option value="">Select Document Type</option>
     
-    <option value="<?php echo e($row->document_type); ?>"><?php echo e($row->document_type); ?></option>
+    
     
   </select>
 </div>
@@ -378,40 +364,90 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
-<script>
-  const state = new TomSelect('#state', {});
-  const city = new TomSelect('#city', {});
-  const blood_group = new TomSelect('#blood_group', {create: true,});
-  const document_type = new TomSelect('#document_type', {create: true,});
-  const health_issues = new TomSelect('#health_issues', {create: true,});
 
-  document.addEventListener('alpine:init', () => {
-      Alpine.data('app', () => ({
-        enquiry:{},
-        mother:null,
-        courses:<?php echo json_encode($courses, 15, 512) ?>,
-        course:{},
-        course_id:null,
-        guardian:null,
-        getEnquiry(key,value){
-          $.getJSON('<?php echo e(url("admin/admission/enquiry")); ?>/'+key+'/'+value, (data) => {
-            this.enquiry = data;
-            this.mother = data.mother_name ? 1 : 0;
-            this.guardian = data.guardian_name ? 1 : 0;
-            state.setValue(data.state);
-            city.setValue(data.city);
-            blood_group.setValue(data.blood_group);
-            document_type.setValue(data.document_type);
-            health_issues.setValue(data.health_issues);
-          });
-        },
-        getCourses(){
-          this.course = this.courses.find((course) => course.id == this.course_id);
-          console.log(this.course);
-        },
-      }))
-  })
+<script>
+  $('#batchYear').change(function () {
+      var batchYear = $(this).val();
   
-</script>
+      if (batchYear) {  // Ensure batch year is selected
+          $.ajax({
+              url: "<?php echo e(route('get.categories')); ?>",
+              type: "GET",
+              data: { batch_year: batchYear },
+              success: function (response) {
+                  $('#type').empty().append('<option value="">Select Type / Category</option>');
+  
+                  if (response.categories.length > 0) {
+                      $.each(response.categories, function (key, category) {
+                          $('#type').append('<option value="' + category + '">' + category + '</option>');
+                      });
+                  }
+              }
+          });
+      } else {
+          console.error("Batch year is not selected");
+      }
+  });
+  
+  $('#batchYear, #type').change(function () {
+      var batchYear = $('#batchYear').val();
+      var type = $('#type').val();
+  
+      if (batchYear && type) {  // Ensure both batch year and type are selected
+          $.ajax({
+              url: "<?php echo e(route('get.batch.data')); ?>",
+              type: "GET",
+              data: { batch_year: batchYear, type: type },
+              success: function (response) {
+                  $('#course').empty().append('<option value="">Select Course</option>');
+  
+                  if (response.courses.length > 0) {
+                      $.each(response.courses, function (key, course) {
+                          $('#course').append('<option value="' + course.id + '">' + course.name + '</option>');
+                      });
+                  }
+              }
+          });
+      } else {
+          console.error("Batch year or type/category is not selected");
+      }
+  });
+  </script>
+  
+  <script>
+    const state = new TomSelect('#state', {});
+    const city = new TomSelect('#city', {});
+    const blood_group = new TomSelect('#blood_group', {create: true,});
+    const document_type = new TomSelect('#document_type', {create: true,});
+    const health_issues = new TomSelect('#health_issues', {create: true,});
+  
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('app', () => ({
+          enquiry:{},
+          mother:null,
+          courses:<?php echo json_encode($courses, 15, 512) ?>,
+          course:{},
+          course_id:null,
+          guardian:null,
+          getEnquiry(key,value){
+            $.getJSON('<?php echo e(url("admin/admission/enquiry")); ?>/'+key+'/'+value, (data) => {
+              this.enquiry = data;
+              this.mother = data.mother_name ? 1 : 0;
+              this.guardian = data.guardian_name ? 1 : 0;
+              state.setValue(data.state);
+              city.setValue(data.city);
+              blood_group.setValue(data.blood_group);
+              document_type.setValue(data.document_type);
+              health_issues.setValue(data.health_issues);
+            });
+          },
+          getCourses(){
+            this.course = this.courses.find((course) => course.id == this.course_id);
+            console.log(this.course);
+          },
+        }))
+    })
+    
+  </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\erp\resources\views/admission/create.blade.php ENDPATH**/ ?>

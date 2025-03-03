@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Courses List')
+@section('title', 'Edit Course')
 @section('main')
 <div class="main-content">
    <section class="section">
@@ -11,102 +11,130 @@
                         @csrf
                         @method('PUT')
                       <div class="card-body">
-                       
                       <div class="row">
-                       
-                       <div class="form-group col-lg-3">
-                        <label>Name</label>
-                         <input type="text" name="title" value="{{ $course->title }}" class="form-control form-control-sm" required>
-          
-                    </div>
+                        
+                        <div class="form-group col-lg-3">
+                          <label>Academic Year (UG & PG)</label>
+                          <select id="academicYear" name="academic_year" class="form-control form-control-sm" required>
+                            <option value="">Select</option>
+                          </select>
+                        </div>
+                        
+                        <div class="form-group col-lg-3">
+                          <label>Category</label>
+                          <select id="category" name="category" class="form-control form-control-sm" required>
+                            <option value="">Select</option>
+                          </select>
+                        </div>
+                        
+                        <div class="form-group col-lg-3">
+                          <label>Shift</label>
+                          <select name="shift" class="form-control form-control-sm" required>
+                             <option value="">Select</option>
+                             <option value="Morning Shift" {{ $course->shift == 'Morning Shift' ? 'selected' : '' }}>Morning Shift</option>
+                             <option value="Afternoon Shift" {{ $course->shift == 'Afternoon Shift' ? 'selected' : '' }}>Afternoon Shift</option>
+                          </select>
+                        </div>    
 
-                    <div class="form-group col-lg-3">
-                        <label>Prerequisites</label>
-                         <input type="text" name="prerequisites" value="{{ $course->prerequisites }}" class="form-control form-control-sm">
-                    </div>
+                        <div class="form-group col-lg-3">
+                          <label>Medium</label>
+                          <select name="medium" class="form-control form-control-sm" required>
+                            <option value="">Select</option>
+                            <option value="Tamil" {{ $course->medium == 'Tamil' ? 'selected' : '' }}>Tamil</option>
+                            <option value="English" {{ $course->medium == 'English' ? 'selected' : '' }}>English</option>
+                          </select>
+                        </div>
 
-                    <div class="form-group col-lg-3">
-                        <label>Category</label>
-                         <input type="text" name="category" value="{{ $course->category }}" class="form-control form-control-sm">
-                    </div>
+                        <div class="form-group col-lg-4">
+                          <label>Course Name</label>
+                          <input type="text" name="name" value="{{ $course->name }}" class="form-control form-control-sm" required>
+                        </div>
 
-                 
-                    <div class="form-group col-lg-3">
-                        <label>Duration</label>
-                         <input type="text" name="duration" value="{{ $course->duration }}" class="form-control form-control-sm" required>
-                    </div>
-
-            <div class="form-group col-lg-3">
-            <label>Difficulty Level</label>
-             <select name="level" class="form-control form-control-sm">
-               <option value="">Select Level</option>
-               <option value="Beginner" @if($course->level == 'Beginner') selected @endif>Beginner</option>
-               <option value="Intermediate" @if($course->level == 'Intermediate') selected @endif>Intermediate</option>
-               <option value="Advanced" @if($course->level == 'Advanced') selected @endif>Advanced</option>
-               <option value="Expert" @if($course->level == 'Expert') selected @endif>Expert</option>
-             </select>
-             
-          </div>
-
-
-          <div class="form-group col-lg-3">
-            <label>Start Time</label>
-             <input type="time" name="start_time" value="{{ $course->start_time }}" placeholder="e.g 40"  class="form-control form-control-sm">
-           </div>
-
-           <div class="form-group col-lg-3">
-            <label>End Time</label>
-             <input type="time" name="end_time" value="{{ $course->end_time }}" placeholder="e.g 40"  class="form-control form-control-sm">
-           </div>
-
-          <div class="form-group col-lg-3">
-           <label>Enrollment Limit</label>
-            <input type="number" value="{{ $course->enrollment_limit }}" name="enrollment_limit" min="0" class="form-control form-control-sm">
-          </div>
-
-          <div class="form-group col-lg-3">
-              <label>Course Fee</label>
-              <input type="number" value="{{ $course->course_fee }}" min="1" name="course_fee" class="form-control form-control-sm" required>
-          </div>
-
-          <div class="form-group col-lg-3">
-               <label>Assessment Method</label>
-              <input type="text" value="{{ $course->assessment_method }}" name="assessment_method" class="form-control form-control-sm">
-          </div>
-
-          <div class="form-group col-lg-3">
-               <label>Enrollment Status</label>
-               <select name="enrollment_status" class="form-control form-control-sm">
-                <option value="">Select Option</option>
-                <option value="Yes" @if($course->enrollment_status == 'Yes') selected @endif>Yes</option>
-                <option value="No" @if($course->enrollment_status == 'No') selected @endif>No</option>
-              </select>
-          </div>
-
-          <div class="form-group col-lg-3">
-            <label>Concession</label>
-            <select name="concession" class="form-control form-control-sm" required>
-              <option value="">Select Option</option>
-              <option value="Yes" @if($course->concession == 'Yes') selected @endif>Yes</option>
-              <option value="No" @if($course->concession == 'No') selected @endif>No</option>
-            </select>
-       </div>
-
-
-        <div class="form-group col-lg-12">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-
-         
-            </div>
-                     
-          </div>
-         </form>
-      </div>
+                        @foreach(['FC', 'OC', 'BC', 'MBC', 'SC_ST', 'OTHER'] as $field)
+                        <div class="form-group col-lg-1">
+                          <label>{{ $field }}</label>
+                          <input type="number" name="{{ $field }}" min="0" value="{{ $course->$field }}" class="form-control form-control-sm seat-input" required>
+                        </div>
+                        @endforeach
+                        
+                        <div class="form-group col-lg-2">
+                          <label>Total</label>
+                          <input type="number" name="total" min="0" value="{{ $course->total }}" class="form-control form-control-sm" required id="total" readonly>
+                        </div>
+                      
+                      <div class="form-group col-lg-12">
+                          <button type="submit" class="btn btn-primary">Update</button>
+                      </div>
+                      
+                      </div>
+                      </div>
+                     </form>
+                 </div>
               </div>
           </div>
       </div>
-  
      </section>
 </div>
+
+<script>
+  // Populate Academic Year dynamically
+  document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const options = [
+      `${currentYear}-${currentYear + 3}`, 
+      `${currentYear}-${currentYear + 2}`  
+    ];
+    
+    const select = document.getElementById("academicYear");
+    options.forEach(year => {
+      const option = document.createElement("option");
+      option.value = year;
+      option.textContent = year;
+      if (year === "{{ $course->academic_year }}") option.selected = true;
+      select.appendChild(option);
+    });
+
+    // Populate category based on selected academic year
+    select.addEventListener('change', function () {
+      const categoryDropdown = document.getElementById('category');
+      categoryDropdown.innerHTML = '<option value="">Select</option>';
+      
+      const selectedYear = this.value;
+      const duration = parseInt(selectedYear.split('-')[1]) - parseInt(selectedYear.split('-')[0]);
+      let categories = duration === 3 ? ["Aided UG", "SF UG"] : ["Aided PG", "SF PG"];
+      
+      categories.forEach(cat => {
+        const option = new Option(cat, cat);
+        if (cat === "{{ $course->category }}") option.selected = true;
+        categoryDropdown.add(option);
+      });
+    });
+
+    select.dispatchEvent(new Event('change'));
+  });
+
+  // Prevent negative values
+  document.querySelectorAll('input[type="number"]').forEach(input => {
+    input.addEventListener('input', function () {
+      if (this.value < 0) {
+        this.value = 0;
+        alert('Negative values are not allowed!');
+      }
+    });
+  });
+
+  // Calculate total
+  function calculateTotal() {
+    const total = Array.from(document.querySelectorAll('.seat-input'))
+      .reduce((sum, input) => sum + (parseInt(input.value) || 0), 0);
+    document.getElementById('total').value = total;
+  }
+
+  document.querySelectorAll('.seat-input').forEach(input => {
+    input.addEventListener('input', calculateTotal);
+  });
+  
+  calculateTotal();
+</script>
 @endsection

@@ -41,10 +41,12 @@
           <th>Dob</th>
           <th>Gender</th>
           <th>Mobile No</th>
-          <th>Address Line1</th>
+          <th>Batch</th>
+          {{-- <th>Address Line1</th> --}}
           <th>Address Line2</th>
-          {{-- <th>Course</th> --}}
-          <th>Action</th>
+          <th>Course</th>
+          <th>Edit/View</th>
+          <th>Delete</th>
         </tr>
   
         </thead>
@@ -57,9 +59,13 @@
             <td>{{$admission->dob}}</td>
             <td>{{$admission->gender}}</td>
             <td>{{$admission->mobile_no}}</td>
-            <td>{{$admission->address_line1}}</td>
+            <td>{{$admission->batch_year}}</td>
+            {{-- <td>{{$admission->address_line1}}</td> --}}
             <td>{{$admission->address_line2}}</td>
-            {{-- <td>{{$admission->course->title}}</td> --}}
+            <td>{{ $admission->course->name ?? 'N/A' }}</td>
+            <td>
+              <a href="{{route('admission.edit', $admission->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+            </td>
             <td>
               <form action="{{route('admission.destroy', $admission->id)}}" method="post">
                 @csrf

@@ -9,10 +9,11 @@ class Admission extends Model
  
     public $table = 'admission';
 
-    protected $fillable = ['name', 'type', 'dob', 'gender', 'mobile_no', 'alternate_mobile_no','address_line1', 'address_line2', 'city', 'state', 'father_name', 'father_no', 'father_occupation', 'relation_type', 'pincode', 'mother_name', 'mother_no', 'mother_occupation', 'mother_email', 'guardian_name', 'guardian_no', 'guardian_occupation', 'guardian_email', 'refereed_by', 'admission_date', 'course_id', 'father_email', 'blood_group','student_photo','documents','health_issues','health_remarks','remarks','document_type','enquiry_no','total_fee' ,'school_name','group_12th','mark_12th','percentage_12th','no_of_attempts_12th','physical_challenge_percentage','physicallyChallenged' ,];
+    protected $fillable = ['name', 'type', 'dob', 'gender', 'mobile_no', 'alternate_mobile_no','address_line1', 'address_line2', 'city', 'state', 'father_name', 'father_no', 'father_occupation', 'relation_type', 'pincode', 'mother_name', 'mother_no', 'mother_occupation', 'mother_email', 'guardian_name', 'guardian_no', 'guardian_occupation', 'guardian_email', 'refereed_by', 'admission_date', 'course_id', 'father_email', 'blood_group','student_photo','documents','health_issues','health_remarks','remarks','document_type','enquiry_no','total_fee' ,'school_name','group_12th','mark_12th','percentage_12th','no_of_attempts_12th','physical_challenge_percentage','physicallyChallenged', 'batch_year' ,];
 
-	function course(){
-		return $this->belongsTo('App\Models\Course', 'course_id', 'id');
+	public function course()
+	{
+		return $this->belongsTo(Course::class, 'course_id', 'id');
 	}
 
 	function fees(){
